@@ -1,0 +1,97 @@
+<div id="map"
+     leaflet
+     (leafletMapReady)="onMapReady($event)"
+     (dblclick)="setMarker($event)"
+     [leafletOptions]="mapOptions">
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" id="modalHidden" class="btn btn-primary" hidden data-toggle="modal" data-target="#modalAgregar" >
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalVer" tabindex="-1" aria-labelledby="modalVerLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal">Sitios Guardados</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <table class="table" style="width: 100%;">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Titulo</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">url</th>
+              <th scope="col">Cordenada</th>
+
+            </tr>
+          </thead>
+          <tbody>
+
+
+            <tr *ngFor="let item of Marcadores ; let i = index">
+              <th scope="row">{{i}}</th>
+              <td>{{item.titulo}}</td>
+              <td>{{item.descripcion}}</td>
+              <td>{{item.url}}</td>
+              <td>[{{item.Lat}} , {{item.Lng}} ]</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarlabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal">Agregar Sitios</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="titulo">Titulo</label>
+            <input type="text" [formControl]="titulo" formControlName="titulo"  class="form-control" id="titulo" aria-describedby="titulo del punto">
+            <small id="Titulohelp" class="form-text text-muted">Trata de ser super original!</small>
+            <div *ngIf="this.titulo.errors">
+              <small  class="form-text text-danger">Debes agregar un titulo no superior a 25 caracteres</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="descripcion">Agrega una descripción</label>
+            <textarea [formControl]="descripcion" class="form-control" id="descripcion" rows="3"></textarea>
+            <div *ngIf="this.descripcion.errors">
+              <small  class="form-text text-danger">Debes agregar un descripcion entre 10 a 250 caracteres</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="imagen">Pega una url para la imagen!</label>
+            <input [formControl]="url"  accept="image/*" type="text" class="form-control" id="imagen">
+            <div *ngIf="this.url.errors">
+              <small  class="form-text text-danger">Debes proporciorar un url valida! ejemplo: https://via.placeholder.com/200</small>
+            </div>
+          </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="cerrar" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
+        <button type="button" [disabled]="!this.titulo.valid || !this.descripcion.valid || !this.url.valid " (click)="onSave()" class="btn btn-primary">Guardar sitio</button>
+      </div>
+    </div>
+  </div>
+</div>
