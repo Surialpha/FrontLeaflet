@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:prod": "ng build --configuration production --base-href https://Surialpha.github.io/test/",
+    "build:prod": "ng build --configuration production --base-href https://Surialpha.github.io/FrontLeaflet/",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless"
   },
   "private": true,
